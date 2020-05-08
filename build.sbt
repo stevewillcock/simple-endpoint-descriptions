@@ -5,6 +5,15 @@ ThisBuild / organizationName := "rowanbeach"
 
 lazy val root = crossProject(JSPlatform, JVMPlatform)
   .settings(
-    name := "Simple HTTP Endpoint Descriptions"
+    name := "Simple HTTP Endpoint Descriptions",
+    libraryDependencies ++= Seq(
+      "com.lihaoyi" %%% "upickle" % "1.1.0"
+    )
+  )
+  .jvmSettings(
+    libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-http" % "10.1.11",
+      "com.typesafe.akka" %% "akka-stream" % "2.6.5",
+    )
   )
 

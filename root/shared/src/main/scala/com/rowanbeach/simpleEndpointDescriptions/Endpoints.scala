@@ -1,13 +1,16 @@
 package com.rowanbeach.simpleEndpointDescriptions
 
-sealed trait Endpoint
+import upickle.default.ReadWriter
+import upickle.default.Writer
 
-case class GetAllEndpoint[O](urlFragment: UrlFragment)
+sealed trait EndpointDescription
 
-case class GetSingleEndpoint[IU, O](urlFragment: UrlExtractorFragment[IU])
+case class GetAllEndpointDescription[O](urlFragment: UrlFragment)(implicit readWriter: ReadWriter[O]) extends EndpointDescription
 
-case class PostEndpoint[IB, O](urlFragment: UrlFragment)
+case class GetSingleEndpointDescription[IU, O](urlFragment: UrlExtractorFragment[IU])(implicit writer: Writer[O]) extends EndpointDescription
 
-case class PutEndpoint[IU, IB](urlFragment: UrlExtractorFragment[IU])
+case class PostEndpointDescription[IB, O](urlFragment: UrlFragment) extends EndpointDescription
 
-case class DeleteEndpoint[IU](urlFragment: UrlExtractorFragment[IU])
+case class PutEndpointDescription[IU, IB](urlFragment: UrlExtractorFragment[IU]) extends EndpointDescription
+
+case class DeleteEndpointDescription[IU](urlFragment: UrlExtractorFragment[IU]) extends EndpointDescription
